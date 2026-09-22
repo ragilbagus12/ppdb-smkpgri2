@@ -2,11 +2,20 @@
   "version": 2,
   "builds": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "public"
-      }
+      "src": "public/build/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/images/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/favicon.ico",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/robots.txt",
+      "use": "@vercel/static"
     },
     {
       "src": "api/index.php",
@@ -17,7 +26,10 @@
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
+    { "src": "/build/(.*)", "dest": "/public/build/$1" },
+    { "src": "/images/(.*)", "dest": "/public/images/$1" },
+    { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
+    { "src": "/robots.txt", "dest": "/public/robots.txt" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ]
 }
