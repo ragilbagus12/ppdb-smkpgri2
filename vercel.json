@@ -4,7 +4,17 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "public/build" }
+      "config": {
+        "distDir": "public/build"
+      }
+    },
+    {
+      "src": "public/images/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/favicon.ico",
+      "use": "@vercel/static"
     },
     {
       "src": "api/index.php",
@@ -16,6 +26,8 @@
   ],
   "routes": [
     { "src": "/build/(.*)", "dest": "/public/build/$1" },
+    { "src": "/images/(.*)", "dest": "/public/images/$1" },
+    { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ]
 }
