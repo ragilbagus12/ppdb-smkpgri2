@@ -85,7 +85,8 @@
         },
         "platform-check": false,
         "platform": {
-            "ext-intl": "8.2"
+            "php": "8.3.12",
+            "ext-intl": "7.5.0"
         }
     },
     "minimum-stability": "stable",
