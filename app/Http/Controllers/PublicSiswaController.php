@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Cloudinary\Cloudinary;
 
 class PublicSiswaController extends Controller
 {
@@ -23,7 +23,7 @@ class PublicSiswaController extends Controller
             'jenis_kelamin' => 'required|string',
             'asal_sekolah'  => 'required|string|max:255',
             'alamat'        => 'required|string',
-            'foto'          => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi foto
+            'foto'          => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $siswa = new Siswa();
@@ -33,10 +33,15 @@ class PublicSiswaController extends Controller
         $siswa->asal_sekolah = $request->asal_sekolah;
         $siswa->alamat = $request->alamat;
 
-        // Proses simpan file foto ke Cloudinary menggunakan Facade
+        // Proses upload foto langsung menggunakan Cloudinary SDK
         if ($request->hasFile('foto')) {
-            $uploadedFileUrl = Cloudinary::upload($request->file('foto')->getRealPath())->getSecurePath();
-            $siswa->foto = $uploadedFileUrl;
+            $cloudinary = new Cloudinary(env('CLOUDINARY_URL'));
+            
+            $uploaded = $cloudinary->uploadApi()->upload(
+                $request->file('foto')->getRealPath()
+            );
+
+            $siswa->foto = $uploaded['secure_url'];
         }
 
         $siswa->save();
