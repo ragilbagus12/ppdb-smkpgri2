@@ -14,7 +14,6 @@ class PublicSiswaController extends Controller
     }
 
     // Menyimpan Data Pendaftaran ke Database
-    // Menyimpan Data Pendaftaran ke Database
     public function store(Request $request)
     {
         $request->validate([
@@ -33,9 +32,10 @@ class PublicSiswaController extends Controller
         $siswa->asal_sekolah = $request->asal_sekolah;
         $siswa->alamat = $request->alamat;
 
-        // Proses simpan file foto ke storage
+        // Proses simpan file foto ke Cloudinary
         if ($request->hasFile('foto')) {
-            $siswa->foto = $request->file('foto')->store('foto-siswa', 'public');
+            $uploadedFileUrl = cloudinary()->upload($request->file('foto')->getRealPath())->getSecurePath();
+            $siswa->foto = $uploadedFileUrl;
         }
 
         $siswa->save();
