@@ -127,6 +127,16 @@
                 </button>
             </form>
 
+            <!-- Register Link / Buat Akun Baru -->
+            @if (Route::has('register'))
+                <div class="mt-5 text-center text-sm text-slate-400">
+                    Belum memiliki akun pendaftar? 
+                    <a href="{{ route('register') }}" class="text-indigo-400 hover:text-indigo-300 font-semibold underline underline-offset-4 transition">
+                        Daftar Akun Baru
+                    </a>
+                </div>
+            @endif
+
             <!-- Back to Home Link -->
             <div class="mt-6 text-center pt-5 border-t border-slate-700/50">
                 <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition">
