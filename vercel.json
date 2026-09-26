@@ -6,6 +6,18 @@
       "use": "@vercel/static"
     },
     {
+      "src": "public/css/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/js/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/fonts/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "public/images/**",
       "use": "@vercel/static"
     },
@@ -21,12 +33,15 @@
       "src": "api/index.php",
       "use": "vercel-php@0.7.4",
       "config": {
-        "includeFiles": ["public/build/**"]
+        "includeFiles": ["public/build/**", "public/css/**", "public/js/**", "public/fonts/**"]
       }
     }
   ],
   "routes": [
     { "src": "/build/(.*)", "dest": "/public/build/$1" },
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/fonts/(.*)", "dest": "/public/fonts/$1" },
     { "src": "/images/(.*)", "dest": "/public/images/$1" },
     { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
     { "src": "/robots.txt", "dest": "/public/robots.txt" },
