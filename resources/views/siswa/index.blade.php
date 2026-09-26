@@ -50,7 +50,9 @@
                                 <td class="px-6 py-4 font-semibold text-slate-400">{{ $loop->iteration }}</td>
                                 <td class="px-6 py-4">
                                     @if($item->foto)
-                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto" class="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/30">
+                                        <img src="{{ str_contains($item->foto, 'http') ? $item->foto : asset('storage/' . $item->foto) }}" 
+                                             alt="Foto" 
+                                             class="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500/30">
                                     @else
                                         <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs text-slate-400 font-bold">N/A</div>
                                     @endif
