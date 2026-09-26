@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class PublicSiswaController extends Controller
 {
@@ -32,9 +33,9 @@ class PublicSiswaController extends Controller
         $siswa->asal_sekolah = $request->asal_sekolah;
         $siswa->alamat = $request->alamat;
 
-        // Proses simpan file foto ke Cloudinary
+        // Proses simpan file foto ke Cloudinary menggunakan Facade
         if ($request->hasFile('foto')) {
-            $uploadedFileUrl = cloudinary()->upload($request->file('foto')->getRealPath())->getSecurePath();
+            $uploadedFileUrl = Cloudinary::upload($request->file('foto')->getRealPath())->getSecurePath();
             $siswa->foto = $uploadedFileUrl;
         }
 
