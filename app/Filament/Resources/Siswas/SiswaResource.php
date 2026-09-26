@@ -18,7 +18,13 @@ class SiswaResource extends Resource
 {
     protected static ?string $model = Siswa::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // 1. Mengubah Ikon Sidebar menjadi Topi Toga (Academic Cap)
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;
+
+    // 2. Mengubah Label Tampilan di Admin Panel
+    protected static ?string $modelLabel = 'Siswa';
+    protected static ?string $pluralModelLabel = 'Data Siswa';
+    protected static ?string $navigationLabel = 'Data Siswa';
 
     protected static ?string $recordTitleAttribute = 'nama_lengkap';
 

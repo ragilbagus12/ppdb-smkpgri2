@@ -11,7 +11,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -29,20 +28,33 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+
+            // 1. Branding & Logo Sekolah
+            ->brandName('PPDB SMK PGRI 2')
+            ->brandLogo(asset('images/SMKPGRI2.png'))
+            ->brandLogoHeight('2.5rem')
+            ->favicon(asset('images/SMKPGRI2.png'))
+
+            // 2. Skema Warna Modern (Indigo + Slate)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Indigo,
+                'gray' => Color::Slate,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+
+            // 3. Layout Sidebar Dapat Dilipat
+            ->sidebarCollapsibleOnDesktop()
+            ->maxContentWidth('full')
+
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('app/Filament/Resources/Siswas/Widgets'), for: 'App\Filament\Resources\Siswas\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
-                StatsSiswaOverview::class, // <-- Tambahkan baris ini di baris 44
-                ])
+                StatsSiswaOverview::class, // Widget statistik pendaftaran siswa Anda
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
